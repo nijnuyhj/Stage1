@@ -7,10 +7,9 @@ import com.example.first.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,8 +19,15 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<ResponseMessageDto<PostResponseDto>> createPost(@RequestBody PostRequestDto postRequestDto){
-        postService.createPost(postRequestDto);
-        return new ResponseEntity<>(new ResponseMessageDto<>("게시글 작성 성공",null),HttpStatus.CREATED);
+        PostResponseDto response = postService.createPost(postRequestDto);
+        return new ResponseEntity<>(new ResponseMessageDto<>("게시글 작성 성공",response),HttpStatus.CREATED);
     }
+
+    @GetMapping("/posts")
+    public ResponseEntity<ResponseMessageDto<List<PostResponseDto>>>getPost(){
+        List<PostResponseDto> response = postService.getPost();
+        return new ResponseEntity<>(new ResponseMessageDto<>("게시글 조회 성공",response),HttpStatus.OK);
+    }
+
 
 }

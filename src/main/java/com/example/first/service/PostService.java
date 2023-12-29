@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,5 +22,11 @@ public class PostService {
         Post post = postRequestDto.toEntity();
         postRepository.save(post);
         return new PostResponseDto(post);
+    }
+
+    @Transactional
+    public List<PostResponseDto> getPost(){
+        List<PostResponseDto> getList =postRepository.getPost();
+        return getList;
     }
 }
