@@ -47,4 +47,13 @@ public class PostService {
         post.updatePost(postRequestDto.getTitle(),postRequestDto.getContent(),postRequestDto.getName(),postRequestDto.getPassword());
         return new PostResponseDto(post);
     }
+
+    @Transactional
+    public PostResponseDto deletePost(Long postId){
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
+        );
+        postRepository.deleteById(postId);
+        return new PostResponseDto(post);
+    }
 }
