@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("SELECT new com.example.first.dto.response.PostResponseDto(p.id, p.title, p.name, p.password, p.content) FROM Post p")
-    List<PostResponseDto> getPost();
+    List<PostResponseDto> getPostList();
+
+
 }

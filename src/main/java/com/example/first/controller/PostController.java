@@ -24,8 +24,14 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<ResponseMessageDto<List<PostResponseDto>>>getPost(){
-        List<PostResponseDto> response = postService.getPost();
+    public ResponseEntity<ResponseMessageDto<List<PostResponseDto>>>getPostList(){
+        List<PostResponseDto> response = postService.getPostList();
+        return new ResponseEntity<>(new ResponseMessageDto<>("게시글 전체 조회 성공",response),HttpStatus.OK);
+    }
+
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<ResponseMessageDto<PostResponseDto>>getPost(@PathVariable Long postId){
+        PostResponseDto response = postService.getPost(postId);
         return new ResponseEntity<>(new ResponseMessageDto<>("게시글 조회 성공",response),HttpStatus.OK);
     }
 
