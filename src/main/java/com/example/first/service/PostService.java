@@ -37,6 +37,14 @@ public class PostService {
                 ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
         return new PostResponseDto(post);
+    }
 
+    @Transactional
+    public PostResponseDto updatePost(Long postId, PostRequestDto postRequestDto){
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()->new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
+        );
+        post.updatePost(postRequestDto.getTitle(),postRequestDto.getContent(),postRequestDto.getName(),postRequestDto.getPassword());
+        return new PostResponseDto(post);
     }
 }

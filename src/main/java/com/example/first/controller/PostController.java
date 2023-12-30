@@ -35,5 +35,10 @@ public class PostController {
         return new ResponseEntity<>(new ResponseMessageDto<>("게시글 조회 성공",response),HttpStatus.OK);
     }
 
+    @PutMapping("/posts/{postId}")
+    public ResponseEntity<ResponseMessageDto<PostResponseDto>>updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto){
+        PostResponseDto response = postService.updatePost(postId,postRequestDto);
+        return new ResponseEntity<>(new ResponseMessageDto<>("게시글 수정 성공",response),HttpStatus.ACCEPTED);
+    }
 
 }
